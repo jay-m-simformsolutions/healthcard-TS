@@ -1,0 +1,27 @@
+{
+  "name": "healthcard-node-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon dist/index.js"
+  },
+  "author": "jay motka",
+  "license": "ISC",
+  "devDependencies": {
+    "@mapbox/node-pre-gyp": "^1.0.0",
+    "@types/bcrypt": "^3.0.0",
+    "@types/express": "^4.17.11",
+    "@types/validator": "^13.1.3",
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "pg": "^8.5.1",
+    "sequelize": "^6.5.0"
+  }
+}
