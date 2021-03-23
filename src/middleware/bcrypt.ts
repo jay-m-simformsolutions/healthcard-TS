@@ -8,7 +8,7 @@ export const getHashedPass = (pass: string): Promise<string> => {
 
 export const comparePass = async (userpass: string, dbpass: string): Promise<boolean> => {
     try {
-        const result = bcrypt.compare(userpass, dbpass)
+        const result = await bcrypt.compare(userpass, dbpass)
         return result
     } catch(error) {
         return error

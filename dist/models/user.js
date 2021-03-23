@@ -7,6 +7,16 @@ const sequelize_1 = require("sequelize");
 const db_1 = __importDefault(require("../middleware/db"));
 const bcrypt_1 = require("../middleware/bcrypt");
 class Patient extends sequelize_1.Model {
+    async authenticate(pass) {
+        try {
+            const res = await bcrypt_1.comparePass(pass, this.patientPass);
+            return res;
+        }
+        catch (error) {
+            console.log(error);
+            return error;
+        }
+    }
 }
 Patient.init({
     patientID: {
@@ -75,7 +85,16 @@ Patient.init({
 //         allowNull: false
 //     }
 // }, {
-//     timestamps: false
+//     timestamps: false,
+//     hooks: {
+//         beforeCreate: async (user: ModelCtor<Model>) => {
+//             try {//'patientPass' in user
+//                     user.patientPass = await getHashedPass(user.patientPass)
+//             } catch(error) {
+//                 console.log(error);
+//             }
+//         }
+//     },
 // });
 Patient.sync({ alter: true, force: true, logging: false });
 exports.default = Patient;

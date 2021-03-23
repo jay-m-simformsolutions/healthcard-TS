@@ -10,7 +10,7 @@ exports.getHashedPass = (pass) => {
 };
 exports.comparePass = async (userpass, dbpass) => {
     try {
-        const result = bcrypt_1.default.compare(userpass, dbpass);
+        const result = await bcrypt_1.default.compare(userpass, dbpass);
         return result;
     }
     catch (error) {
