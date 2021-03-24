@@ -13,7 +13,9 @@ exports.verifyToken = (req, res, next) => {
     const token = (authHeader === null || authHeader === void 0 ? void 0 : authHeader.split(' ')[1]) || null;
     if (token) {
         try {
+            console.log(token);
             const user = jsonwebtoken_1.default.verify(token, secret);
+            console.log(user);
             req.body.user = user;
             next();
         }

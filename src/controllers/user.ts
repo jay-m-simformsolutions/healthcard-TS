@@ -7,7 +7,7 @@ export const userData : RequestHandler = async (req, res, next) => {
     res.status(200).json({ message: 'user route' })
 }
 
-export const signup: RequestHandler = async (req, res, next) => {
+export const signup: RequestHandler = async (req, res) => {
     try {
         const { patientPass, patientName, bloodGrp } = req.body 
         const userObj = {
@@ -30,7 +30,7 @@ export const signup: RequestHandler = async (req, res, next) => {
     }
 }
 
-export const signin: RequestHandler = async (req, res, next) => {
+export const signin: RequestHandler = async (req, res) => {
     try {
         const { userID, userPass } = req.body
         const user = await Patient.findOne({
@@ -51,9 +51,8 @@ export const signin: RequestHandler = async (req, res, next) => {
     }
 }
 
-export const getUser: RequestHandler = async (req, res, next) => {
-    console.log(req.params.id)
-    if(req.body.user._id){
+export const getUser: RequestHandler = async (req, res) => {
+    if(req.body.user._id == req.params.id){
         try {
             const user = await Patient.findOne({ where: {
                 patientID: req.params.id

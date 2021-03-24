@@ -9,7 +9,7 @@ exports.userData = async (req, res, next) => {
     console.log('user route');
     res.status(200).json({ message: 'user route' });
 };
-exports.signup = async (req, res, next) => {
+exports.signup = async (req, res) => {
     try {
         const { patientPass, patientName, bloodGrp } = req.body;
         const userObj = {
@@ -32,7 +32,7 @@ exports.signup = async (req, res, next) => {
         res.status(404).json({ message: 'Something went wrong please try again!' });
     }
 };
-exports.signin = async (req, res, next) => {
+exports.signin = async (req, res) => {
     try {
         const { userID, userPass } = req.body;
         const user = await user_1.default.findOne({
@@ -53,9 +53,8 @@ exports.signin = async (req, res, next) => {
         res.status(403).json({ message: 'Something went wrong please try again!' });
     }
 };
-exports.getUser = async (req, res, next) => {
-    console.log(req.params.id);
-    if (req.body.user._id) {
+exports.getUser = async (req, res) => {
+    if (req.body.user._id == req.params.id) {
         try {
             const user = await user_1.default.findOne({ where: {
                     patientID: req.params.id

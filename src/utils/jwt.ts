@@ -12,7 +12,11 @@ export const verifyToken: RequestHandler = ( req, res, next) => {
     const token = authHeader?.split(' ')[1] || null
     if (token) {
         try{
+            console.log(token);
+            
             const user = jwt.verify(token, secret)
+            console.log(user);
+            
             req.body.user = user
             next()   
         } catch(error) {
