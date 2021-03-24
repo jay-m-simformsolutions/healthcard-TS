@@ -2,7 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const user_1 = require("../controllers/user");
+const jwt_1 = require("../utils/jwt");
 const userRoute = express_1.Router();
 userRoute.get('/', user_1.userData);
 userRoute.post('/signup', user_1.signup);
+userRoute.post('/signin', user_1.signin);
+userRoute.use(jwt_1.verifyToken);
+userRoute.get('/:id', user_1.getUser);
 exports.default = userRoute;

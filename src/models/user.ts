@@ -1,12 +1,5 @@
 import {    Model,
-            ModelDefined,
             DataTypes,
-            HasManyGetAssociationsMixin,
-            HasManyAddAssociationMixin,
-            HasManyHasAssociationMixin,
-            Association,
-            HasManyCountAssociationsMixin,
-            HasManyCreateAssociationMixin,
             Optional    } from 'sequelize'
 import sequelize from '../middleware/db'
 import { getHashedPass, comparePass } from '../middleware/bcrypt'
@@ -27,6 +20,16 @@ class Patient extends Model<UserAttributes, UserCreationAttributes> implements U
     public patientName!: string;
     public dateOfBirth!: Date;
     public bloodGrp!: string;
+
+    async authenticate(pass: string): Promise<boolean | Error> {
+        try {
+            const res = await comparePass(pass, this.patientPass)
+            return res
+        } catch(error) {
+            console.log(error);
+            return error
+        }
+    }
 }
 
 Patient.init({
@@ -96,7 +99,16 @@ Patient.init({
 //         allowNull: false
 //     }
 // }, {
-//     timestamps: false
+//     timestamps: false,
+//     hooks: {
+//         beforeCreate: async (user: ModelCtor<Model>) => {
+//             try {//'patientPass' in user
+//                     user.patientPass = await getHashedPass(user.patientPass)
+//             } catch(error) {
+//                 console.log(error);
+//             }
+//         }
+//     },
 // });
 
 Patient.sync({ alter: true, force: true, logging: false })
